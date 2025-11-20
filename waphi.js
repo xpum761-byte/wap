@@ -74,7 +74,7 @@
     console.error("❌ MyWAPI.sendMessage failed:", err);
     return { id: null, body: message, status: "failed" };
   }
-}
+},
     sendFile: async function(chatId, base64Data, filename = "file") {
   const fn = this._linked.sendFile || this._linked.sendMediaMessage;
   try {
@@ -92,7 +92,7 @@
     this._err("sendFile error:", e);
     return { id: null, filename, status: "failed" };
   }
-}
+},
 
     getChats: function() {
       const fn = this._linked.getChats || this._linked.ChatCollection || this._linked.queryChats;
