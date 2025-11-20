@@ -55,19 +55,26 @@
     // Pesan & chat
     // =========================
     sendMessage: async function(chatId, message) {
-      const fn = this._linked.sendMessage;
-      try {
-        if (fn) return await fn(chatId, { text: message });
-        // Fallback DOM: aktifkan chat via sidebar jika terlihat
-        this._typeIntoComposer(message);
-        this._clickSend();
-        return true;
-      } catch (e) {
-        this._err("sendMessage error:", e);
-        return false;
-      }
-    },
+  try {
+    if (this._sendMessageFn) {
+      const msg = await this._sendMessageFn(chatId, { text: message });
+      // msg biasanya punya status / ack
+      return {
+        id: msg.id?._serialized || null,
+        body: msg.body || message,
+        status: msg.status || "pending" // 0=pending,1=sent,2=delivered,3=read,-1=failed
+      };
+    }
 
+    // ⚠️ Fallback DOM injection
+    this._typeIntoComposer(message);
+    this._clickSend();
+    return { id: null, body: message, status: "sent" };
+  } catch (err) {
+    console.error("❌ MyWAPI.sendMessage failed:", err);
+    return { id: null, body: message, status: "failed" };
+  }
+}
     sendFile: async function(chatId, base64Data, filename = "file") {
       const fn = this._linked.sendFile || this._linked.sendMediaMessage;
       try {
