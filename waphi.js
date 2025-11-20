@@ -76,15 +76,23 @@
   }
 }
     sendFile: async function(chatId, base64Data, filename = "file") {
-      const fn = this._linked.sendFile || this._linked.sendMediaMessage;
-      try {
-        if (!fn) throw new Error("sendFile internal not available");
-        return await fn(chatId, base64Data, filename);
-      } catch (e) {
-        this._err("sendFile error:", e);
-        return false;
-      }
-    },
+  const fn = this._linked.sendFile || this._linked.sendMediaMessage;
+  try {
+    if (!fn) throw new Error("sendFile internal not available");
+
+    const msg = await fn(chatId, base64Data, filename);
+
+    return {
+      id: msg.id?._serialized || null,
+      filename: filename,
+      mimetype: msg.mimetype || "application/octet-stream",
+      status: msg.status || "pending" // 0=pending,1=sent,2=delivered,3=read,-1=failed
+    };
+  } catch (e) {
+    this._err("sendFile error:", e);
+    return { id: null, filename, status: "failed" };
+  }
+}
 
     getChats: function() {
       const fn = this._linked.getChats || this._linked.ChatCollection || this._linked.queryChats;
@@ -191,7 +199,46 @@
         return false;
       }
     },
-
+// =========================
+// Listener status pesan
+// =========================
+onMessageStatus: function(callback) {
+  this._listeners.status = callback;
+  const ev = this._linked.MsgEvent || this._linked.EventEmitter;
+  try {
+    if (ev && ev.on) {
+      // Internal emitter
+      ev.on("message_ack", msg => {
+        try {
+          callback({
+            id: msg.id?._serialized || null,
+            body: msg.body || null,
+            status: msg.status // 0=pending,1=sent,2=delivered,3=read,-1=failed
+          });
+        } catch(e){}
+      });
+      this._log("onMessageStatus linked to internal emitter.");
+    } else {
+      // Fallback observer: cek perubahan DOM centang
+      const panel = document.querySelector("div[role='grid']");
+      if (!panel) return this._log("onMessageStatus fallback: panel not found");
+      const obs = new MutationObserver(() => {
+        const last = document.querySelector("div.message-out:last-of-type");
+        if (last) {
+          let status = "sent";
+          if (last.querySelector("span[data-icon='msg-check']")) status = "sent";
+          if (last.querySelector("span[data-icon='msg-dblcheck']")) status = "delivered";
+          if (last.querySelector("span[data-icon='msg-dblcheck-ack']")) status = "read";
+          callback({ id: null, body: last.innerText?.trim(), status });
+        }
+      });
+      obs.observe(panel, { childList: true, subtree: true });
+      this._log("onMessageStatus fallback observer aktif.");
+    }
+  } catch (e) {
+    this._err("onMessageStatus error:", e);
+  }
+}
     // =========================
     // Kontak & profil
     // =========================
