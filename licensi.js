@@ -1,0 +1,27 @@
+{
+  "wptextboxcaptionpath_old": "//div[p[contains(@class, 'selectable-text')][1]]",
+  "wptextboxpath": "//*[@id='main']/footer/div[1]/div/span/div/div[2]/div/div[3]/div[1]",
+  "IsCaptionLoaded": "//p[contains(@class, 'selectable-text')][1]",
+  "checkboxcaptionpath": "//p[contains(@class, 'selectable-text')][1]",
+  "wptextboxcaptionpath": "//div[p[contains(@class, 'selectable-text')][1]]",
+  "windowwait": "//*[@id='app']/div/span[2]/div",
+  "IsInvaidpath": "//*[@role='dialog']//*[self::button or self::div[@role='button']][last()]",
+  "TextInvaidpath": "//*[@role='dialog']//*[@data-animate-modal-body='true']/div[1]",
+  "IsLoadingChat": "//*[@id='app']/div/span[2]/div/span/div/div/div/div/div/div[3]/div/button/div/div",
+  "IsLoggedIn": "//*[@id='side']/div[1]/div/div[2]/button/div/span",
+  "Popup": "//*[@id='app']/div/span[2]/div/div/div/div/div/div/div[2]/div/button/div/div",
+  "receivedMessage": "//*[@id='pane-side']/div[1]/div/div/div[1]/div/div/div[2]/div[2]/div[1]/span/span",
+  "IsChatDisplayed": "//*[@id='main']/footer/div[1]/div/span/div/div[2]/div/div[3]/div[1]",
+  "captionxpath": "//*[@id='app']/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/div[1]/span/div/div[2]/div/div[3]/div[1]/div[2]",
+  "grabber": "//*[@id='main']/header/div[2]/div[2]",
+  "GroupName": "//*[@id='main']/header/div[2]/div[1]/div",
+
+  "AttachButtonPrimary": "span[data-icon^='plus']",
+  "AttachButtonFallback": "span[data-icon='attach-menu-plus']",
+  "FileInput": "input[type='file']",
+  "FileInputMediaOnly": "input[accept='image/*,video/mp4,video/3gpp,video/quicktime']",
+
+  "JsExec": "document.getElementsByClassName('_16C8p')(0).innerHTML=\"<a href='#' id='sender' class='executor'>.</a>\"",
+  "WAPIScript": "",
+  "JavaScriptInject": ""
+}
