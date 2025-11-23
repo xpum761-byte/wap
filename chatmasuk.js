@@ -3,7 +3,7 @@ let rows = document.querySelectorAll('[aria-label=""Daftar chat""][role=""grid""
 let results = [];
 rows.forEach(row => {
     // cari badge angka unread (misalnya 6, 3, dst)
-    let badge = row.querySelector('span.x140p0ai0'); 
+    let badge = row.querySelector('span.x140p0ai'); 
     if (!badge) return; // kalau tidak ada badge, berarti tidak ada pesan baru
 
     let count = badge.innerText;
