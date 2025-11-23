@@ -1,21 +1,25 @@
-(function(){
-  try {
-    let rows = document.querySelectorAll('[aria-label="Daftar chat"][role="grid"] div[role="row"]');
-    let results = [];
-    rows.forEach(row => {
-      let badge = Array.from(row.querySelectorAll('span')).find(sp => /^\d+$/.test(sp.innerText.trim()));
-      if (!badge) return;
+"
+let rows = document.querySelectorAll('[aria-label=""Daftar chat""][role=""grid""] div[role=""row""]'); // ambil semua row chat di daftar
+let results = [];
+rows.forEach(row => {
+    // cari badge angka unread (misalnya 6, 3, dst)
+    let badge = row.querySelector('span.x140p0ai'); 
+    if (!badge) return; // kalau tidak ada badge, berarti tidak ada pesan baru
 
-      let sender = row.querySelector('span[title]')?.getAttribute('title');
-      let message = row.querySelector('span[dir="ltr"]')?.innerText;
-      let time = row.querySelector('div._ak8i')?.innerText;
+    let count = badge.innerText;
+    if (!count || isNaN(count)) return; // pastikan badge berisi angka
 
-      if (sender && message) {
+    // ambil nama pengirim (title di span)
+    let sender = row.querySelector('span[title]')?.getAttribute('title');
+    // ambil preview pesan terakhir
+    let message = row.querySelector('span[dir=""ltr""]')?.innerText;  
+    // ambil waktu pesan terakhir
+    let time = row.querySelector('div._ak8i')?.innerText;
+
+    // kalau ada data valid, simpan ke results
+    if (sender && message) {
         results.push(sender + '|' + message + '|' + (time || ''));
-      }
-    });
-    return results.join('|||');
-  } catch(e) {
-    return "";
-  }
-})();
+    }
+});
+return results.join('|||'); // gabungkan semua hasil jadi satu string dengan delimiter |||
+"
