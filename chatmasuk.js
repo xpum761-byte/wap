@@ -1,4 +1,3 @@
-// chatmasuk.js
 (function() {
     let rows = document.querySelectorAll('div[role="row"]'); 
     let results = [];
