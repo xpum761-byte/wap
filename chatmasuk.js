@@ -13,7 +13,7 @@ rows.forEach(row => {
     // ambil preview pesan terakhir
     let message = row.querySelector('span[dir="ltr"]')?.innerText;  
     // ambil waktu pesan terakhir
-    let time = row.querySelector('div._ak8 pi')?.innerText;
+    let time = row.querySelector('div._ak8i')?.innerText;
 
     // kalau ada data valid, simpan ke results
     if (sender && message) {
