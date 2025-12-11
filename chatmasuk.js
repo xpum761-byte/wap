@@ -2,7 +2,7 @@ let rows = document.querySelectorAll('div[role="row"]'); // ambil semua row chat
 let results = [];
 rows.forEach(row => {
     // cari badge angka unread (misalnya 6, 3, dst)
-    let badge = row.querySelector('span.x140p0a pi, span[aria-label*="unread"], span[aria-label*="pesan belum dibaca"]'); 
+    let badge = row.querySelector('span.x140p0ai, span[aria-label*="unread"], span[aria-label*="pesan belum dibaca"]'); 
     if (!badge) return; // kalau tidak ada badge, berarti tidak ada pesan baru
 
     let count = badge.innerText;
