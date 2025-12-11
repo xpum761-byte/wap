@@ -1,4 +1,4 @@
-let rows = document.querySelectorAll('div[role="row"]'); // ambil semua row chat
+let rows = document.querySelectorAll('div[role="grid"]'); // ambil semua row chat
 let results = [];
 rows.forEach(row => {
     // cari badge angka unread (misalnya 6, 3, dst)
