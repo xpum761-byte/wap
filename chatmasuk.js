@@ -1,4 +1,4 @@
-
+{
 let rows = document.querySelectorAll('div[role=""row""]'); 
 let results = [];
 rows.forEach(row => {
@@ -16,3 +16,4 @@ rows.forEach(row => {
     }
 });
 return results.join('|||');"
+}
