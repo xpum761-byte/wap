@@ -1,12 +1,11 @@
-// chatmasuk.js
 (function() {
     let rows = document.querySelectorAll('div[role="row"]'); 
     let results = [];
 
     rows.forEach(row => {
         // syarat utama: harus ada bubble unread
-        let badge = row.querySelector('span.xyp3urf');
-        if (!badge) return; // kalau tidak ada, skip row
+        let badge = row.querySelector('span.xyp3urf, span.x140p0ai');
+        if (!badge) return;
 
         let sender = row.querySelector('span[title]')?.getAttribute('title');
         let messageNode = row.querySelector('span[dir="ltr"]');
