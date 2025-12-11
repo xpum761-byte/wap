@@ -5,7 +5,7 @@
 
     rows.forEach(row => {
         // syarat utama: harus ada bubble unread
-        let badge = row.querySelector('span.xyp3urf, span.x140p0ai');
+        let badge = row.querySelector('span.xyp3urf');
         if (!badge) return; // kalau tidak ada, skip row
 
         let sender = row.querySelector('span[title]')?.getAttribute('title');
