@@ -1,5 +1,6 @@
-  "wptextboxcaptionpath_old": "//div[p[contains(@class, 'selectable-text')][1]",
-  "wptextboxpath": "//*[@id='main']/footer/div[1]/div/span/div/div/div/div[3]/div[1]/p",
+{
+  "wptextboxcaptionpath_old": "//div[p[contains(@class, 'selectable-text')][1]]",
+  "wptextboxpath": "//*[@id='main']/footer/div[1]/div/span/div/div[2]/div/div[3]/div[1]",
   "IsCaptionLoaded": "//p[contains(@class, 'selectable-text')][1]",
   "checkboxcaptionpath": "//p[contains(@class, 'selectable-text')][1]",
   "wptextboxcaptionpath": "//div[p[contains(@class, 'selectable-text')][1]]",
@@ -14,12 +15,8 @@
   "captionxpath": "//*[@id='app']/div/div/div[2]/div[2]/span/div/span/div/div/div[2]/div[1]/span/div/div[2]/div/div[3]/div[1]/div[2]",
   "grabber": "//*[@id='main']/header/div[2]/div[2]",
   "GroupName": "//*[@id='main']/header/div[2]/div[1]/div",
-
   "AttachButtonPrimary": "span[data-icon^='plus']",
   "AttachButtonFallback": "span[data-icon='attach-menu-plus']",
   "FileInput": "input[type='file']",
-  "FileInputMediaOnly": "input[accept='image/*,video/mp4,video/3gpp,video/quicktime']",
-
-  "JsExec": "document.getElementsByClassName('_16C8p')(0).innerHTML=\"<a href='#' id='sender' class='executor'>.</a>\"",
-  "WAPIScript": "",
-  "JavaScriptInject": ""
+  "FileInputMediaOnly": "input[accept='image/*,video/mp4,video/3gpp,video/quicktime']"
+}
