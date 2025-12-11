@@ -1,23 +1,66 @@
-let rows = document.querySelectorAll('div[role="grid"]'); // ambil semua row chat
-let results = [];
-rows.forEach(row => {
-    // cari badge angka unread (misalnya 6, 3, dst)
-    let badge = row.querySelector('span.x140p0ai'); 
-    if (!badge) return; // kalau tidak ada badge, berarti tidak ada pesan baru
+// ==========================
+// Inbox capture: pesan masuk saja
+// ==========================
 
-    let count = badge.innerText;
-    if (!count || isNaN(count)) return; // pastikan badge berisi angka
+// Array untuk menyimpan pesan masuk
+const INBOX = [];
 
-    // ambil nama pengirim (title di span)
-    let sender = row.querySelector('span[title]')?.getAttribute('title');
-    // ambil preview pesan terakhir
-    let message = row.querySelector('span[dir="ltr"]')?.innerText;  
-    // ambil waktu pesan terakhir
-    let time = row.querySelector('div._ak8i')?.innerText;
-
-    // kalau ada data valid, simpan ke results
-    if (sender && message) {
-        results.push(sender + '|' + message + '|' + (time || ''));
+// Fungsi ambil semua pesan masuk yang sudah ada di thread aktif
+function getIncomingMessages() {
+  const results = [];
+  // selector untuk bubble pesan masuk (biasanya ada atribut data-id dan data-arg=in)
+  const bubbles = document.querySelectorAll("div[data-id*='msg'][data-arg*='in']");
+  bubbles.forEach(bubble => {
+    const text = bubble.textContent?.trim();
+    if (text) {
+      const sender = bubble.getAttribute("data-author") || "unknown";
+      const time = bubble.querySelector("span[aria-label]")?.getAttribute("aria-label") || "";
+      const msgId = bubble.getAttribute("data-id") || "";
+      results.push({ id: msgId, sender, text, time });
     }
-});
-return results.join('|'); // gabungkan semua hasil jadi satu string dengan delimiter |
+  });
+  return results;
+}
+
+// Fungsi untuk mulai observasi pesan baru masuk
+function observeIncoming() {
+  const container = document.querySelector("#app");
+  if (!container) {
+    console.warn("Container WhatsApp tidak ditemukan.");
+    return;
+  }
+
+  const obs = new MutationObserver(mutations => {
+    mutations.forEach(m => {
+      m.addedNodes.forEach(node => {
+        if (!(node instanceof HTMLElement)) return;
+        const inbound = node.querySelector?.("div[data-id*='msg'][data-arg*='in']");
+        if (inbound) {
+          const text = inbound.textContent?.trim() || "";
+          const sender = inbound.getAttribute("data-author") || "unknown";
+          const time = inbound.querySelector("span[aria-label]")?.getAttribute("aria-label") || "";
+          const msgId = inbound.getAttribute("data-id") || "";
+          if (text) {
+            const msg = { ts: Date.now(), id: msgId, sender, text, time };
+            INBOX.push(msg);
+            console.log("Pesan masuk:", msg);
+            // Simpan ke storage agar tetap ada meski WA logout
+            chrome.storage.local.set({ INBOX }).catch(() => {});
+          }
+        }
+      });
+    });
+  });
+
+  obs.observe(container, { childList: true, subtree: true });
+}
+
+// ==========================
+// Jalankan observer
+// ==========================
+observeIncoming();
+
+// ==========================
+// Contoh ambil semua pesan masuk yang sudah ada
+// ==========================
+console.log(getIncomingMessages());
