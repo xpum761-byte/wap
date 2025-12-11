@@ -1,5 +1,5 @@
-{
-    let rows = document.querySelectorAll('div[role=""row""]'); 
+
+let rows = document.querySelectorAll('div[role=""row""]'); 
 let results = [];
 rows.forEach(row => {
     // syarat utama: harus ada bubble unread dengan class x140p0ai
@@ -16,4 +16,3 @@ rows.forEach(row => {
     }
 });
 return results.join('|||');"
-}
