@@ -1,4 +1,4 @@
-  "wptextboxcaptionpath_old": "//div[p[contains(@class, 'selectable-text')][1]]",
+  "wptextboxcaptionpath_old": "//div[p[contains(@class, 'selectable-text')][1]",
   "wptextboxpath": "//*[@id='main']/footer/div[1]/div/span/div/div/div/div[3]/div[1]/p",
   "IsCaptionLoaded": "//p[contains(@class, 'selectable-text')][1]",
   "checkboxcaptionpath": "//p[contains(@class, 'selectable-text')][1]",
