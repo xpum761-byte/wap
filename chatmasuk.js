@@ -4,7 +4,7 @@
     let results = [];
 
     rows.forEach(row => {
-        let badge = row.querySelector('span.xyp3urf, span.x140p0ai');
+        let badge = row.querySelector('span.xyp3urf');
         if (!badge) return;
 
         let sender = row.querySelector('span[title]')?.getAttribute('title');
