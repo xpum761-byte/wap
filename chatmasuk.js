@@ -1,22 +1,23 @@
-// chatmasuk.js
-"
-    let rows = document.querySelectorAll('div[role="row"]'); 
-    let results = [];
+let rows = document.querySelectorAll('div[role="row"]'); // ambil semua row chat
+let results = [];
+rows.forEach(row => {
+    // cari badge angka unread (misalnya 6, 3, dst)
+    let badge = row.querySelector('span.x140p0ai'); 
+    if (!badge) return; // kalau tidak ada badge, berarti tidak ada pesan baru
 
-    rows.forEach(row => {
-        // syarat utama: harus ada bubble unread
-        let badge = row.querySelector('span.xyp3urf');
-        if (!badge) return;
+    let count = badge.innerText;
+    if (!count || isNaN(count)) return; // pastikan badge berisi angka
 
-        let sender = row.querySelector('span[title]')?.getAttribute('title');
-        let messageNode = row.querySelector('span[dir="ltr"]');
-        let message = messageNode?.innerText;  
-        let time = row.querySelector('div._ak8i')?.innerText;
+    // ambil nama pengirim (title di span)
+    let sender = row.querySelector('span[title]')?.getAttribute('title');
+    // ambil preview pesan terakhir
+    let message = row.querySelector('span[dir="ltr"]')?.innerText;  
+    // ambil waktu pesan terakhir
+    let time = row.querySelector('div._ak8 pi')?.innerText;
 
-        if (sender && message) {
-            results.push(sender + '|' + message + '|' + (time || ''));
-        }
-    });
-
-    // hasil akhir
-    return results.join('|||');"
+    // kalau ada data valid, simpan ke results
+    if (sender && message) {
+        results.push(sender + '|' + message + '|' + (time || ''));
+    }
+});
+return results.join('|'); 
