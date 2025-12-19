@@ -325,10 +325,19 @@ botmaster.sendFile2 = function(id, account, from, base64File, caption, filename,
     return 'other'; // Changed from 'document' to 'other' for better clarity
   }
 }
-WAPI.isLoggedIn = function(){ return WPP.conn.isAuthenticated()};/*
+WAPI.isLoggedIn = function() {
+    if (window.Store && window.Store.Conn) {
+        return window.Store.Conn.isLoggedIn === true;
+    }
+    if (window.Store && window.Store.State) {
+        return window.Store.State === 'CONNECTED';
+    }
+    return false;
+};/*
 Botmaster API version:5.1.1.2
 Modified and Adapted By Khaldoun Baz (Khillo)
 2025 MediaPlus - Beirut, Lebanon  
 */
+
 
 console.log('Botmaster API version:5.1.1.2\nModified and Adapted By Khaldoun Baz (Khillo) \n2025 MediaPlus - Beirut, Lebanon 2004');
