@@ -334,10 +334,11 @@ WAPI.isLoggedIn = function() {
     }
     return false;
 };/*
-Botmaster API version:5.1.1.2
+Botmaster API version:5.1.1.3
 Modified and Adapted By Khaldoun Baz (Khillo)
 2025 MediaPlus - Beirut, Lebanon  
 */
 
 
-console.log('Botmaster API version:5.1.1.2\nModified and Adapted By Khaldoun Baz (Khillo) \n2025 MediaPlus - Beirut, Lebanon 2004');
+console.log('Botmaster API version:5.1.1.3\nModified and Adapted By Khaldoun Baz (Khillo) \n2025 MediaPlus - Beirut, Lebanon 2004');
+
